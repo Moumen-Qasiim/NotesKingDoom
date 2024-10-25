@@ -1,0 +1,118 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Account</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="email"],
+        input[type="text"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between; /* Align buttons side by side */
+        }
+
+        input[type="submit"],
+        input[type="reset"] {
+            width: 48%; /* Buttons take 48% of the form width */
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #28a745;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        input[type="reset"] {
+            background-color: #dc3545;
+        }
+
+        input[type="submit"]:hover,
+        input[type="reset"]:hover {
+            opacity: 0.9;
+        }
+
+        p.text-danger {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 500px) {
+            form {
+                padding: 15px;
+            }
+            input[type="submit"],
+            input[type="reset"] {
+                width: 48%;
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <form action="create" method="post" th:object="${account}">
+        <label>Enter your email:</label>
+        <input type="email" th:field="*{email}">
+        <p th:if="${#fields.hasErrors('email')}" th:classappend="text-danger" th:errors="*{email}"></p>
+        <br>
+
+        <label>Enter your password:</label>
+        <input type="text" th:field="*{password}">
+        <p th:if="${#fields.hasErrors('password')}" th:classappend="text-danger" th:errors="*{password}"></p>
+        <br>
+
+        <label>Enter your phone Number:</label>
+        <input type="tel" th:field="*{phone_number}">
+        <p th:if="${#fields.hasErrors('phone_number')}" th:classappend="text-danger" th:errors="*{phone_number}"></p>
+        <br>
+        <p th:if="${#fields.hasGlobalErrors()}" class="text-danger">
+            <span th:errors="*{global}"></span>
+        </p>
+        <br>
+        <div class="button-group">
+            <input type="submit" value="Submit">
+            <input type="reset" value="Reset">
+        </div>
+    </form>    
+</body>
+</html>
