@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title th:replace="~{::title}">Default Title</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <header>
+        <h1>My Application</h1>
+        
+        <nav>
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- This is where specific content will be injected -->
+        <div th:replace="~{::content}"></div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 My Application</p>
+    </footer>
+</body>
+</html>
+

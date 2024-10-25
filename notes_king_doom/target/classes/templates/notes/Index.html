@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes Platform</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .add-note-button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .add-note-button:hover {
+            background-color: #45a049;
+        }
+
+        .note-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .note-card {
+            width: 300px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            position: relative;
+        }
+
+        .note-card:hover {
+            transform: scale(1.05);
+        }
+
+        .note-message {
+            font-size: 16px;
+            word-wrap: break-word;
+        }
+
+        .note-footer {
+            font-size: 12px;
+            text-align: right;
+            margin-top: 10px;
+            color: #666;
+        }
+
+        .dark-text {
+            color: black;
+        }
+
+        .light-text {
+            color: white;
+        }
+
+        .note-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .note-actions a {
+            text-decoration: none;
+            padding: 5px 10px;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .note-actions a:hover {
+            background-color: #0056b3;
+        }
+
+        .delete-note {
+            background-color: #DC3545;
+        }
+
+        .delete-note:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Your Notes</h1>
+        <a href="/notes/add" class="add-note-button">Add Note</a>
+    </div>
+
+    <div class="note-container">
+        <div th:each="note : ${notes}" 
+             th:style="'background-color:' + ${note.card_color} + '; color:' + ${note.text_color}" 
+             class="note-card">
+            <div class="note-message" th:text="${note.message}"></div>
+            <div class="note-footer" th:text="${#dates.format(note.created_at, 'dd-MM-yyyy HH:mm')}">Created on</div>
+            <div class="note-actions">
+                <a th:href="@{/notes/update/{id}(id=${note.id})}">Update</a>
+                <a th:href="@{/notes/delete/{id}(id=${note.id})}" class="delete-note" onclick="return confirmDelete()">Delete</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function confirmDelete() {
+            return confirm("Are you sure you want to delete this note?");
+        }
+    </script>
+</body>
+</html>

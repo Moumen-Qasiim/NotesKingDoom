@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update your Note</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 400px;
+            margin: auto;
+        }
+
+        label {
+            margin-top: 10px;
+        }
+
+        input, textarea, select {
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        .color-picker {
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+        }
+
+        .submit-button {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .submit-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>update your note</h1>
+    <form th:action="@{/notes/update}" th:object="${note}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <label for="message">Note:</label>
+        <textarea id="message" th:field="*{message}" rows="5" placeholder="Type your note here" required></textarea>
+        <p th:if="${#fields.hasErrors('message')}" th:classappend="text-danger" th:errors="*{message}"></p>
+        
+        <label for="card_color">Background Color:</label>
+        <input type="color" id="card_color" th:field="*{card_color}" class="color-picker" value="#ffffff" required>
+    
+        
+        <label for="text_color">Text Color:</label>
+        <input type="color" id="text_color" th:field="*{text_color}" class="color-picker" value="#000000" required>
+    
+        
+        <button type="submit" class="submit-button">update Note</button>
+    </form>
+
+</body>
+</html>
+
+
